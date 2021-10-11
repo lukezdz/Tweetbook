@@ -7,6 +7,7 @@ import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
 import javax.enterprise.context.ApplicationScoped;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -15,9 +16,9 @@ import java.util.stream.Collectors;
 @Log
 @ApplicationScoped
 public class DataStore {
-	private Set<User> users;
-	private Set<Post> posts;
-	private Set<Comment> comments;
+	private final Set<User> users = new HashSet<>();
+	private final Set<Post> posts = new HashSet<>();
+	private final Set<Comment> comments = new HashSet<>();
 
 	public synchronized List<User> findAllUsers() {
 		return users.stream()
