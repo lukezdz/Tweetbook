@@ -2,6 +2,7 @@ package pl.edu.pg.zdziarski.lukasz.tweetbook.user.repository;
 
 import pl.edu.pg.zdziarski.lukasz.tweetbook.datastore.DataStore;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.repository.Repository;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.serialization.CloningUtility;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
 import javax.enterprise.context.Dependent;
@@ -40,6 +41,13 @@ public class UserRepository implements Repository<User, String> {
 
 	@Override
 	public void update(User entity) {
-		throw new UnsupportedOperationException("Not implemented.");
+		User usr = CloningUtility.clone(entity);
+		store.updateUser(entity);
+	}
+
+	public void deleteProfilePicture(User user) {
+		User usr = CloningUtility.clone(user);
+		usr.setProfilePicture(null);
+		store.updateUser(usr);
 	}
 }

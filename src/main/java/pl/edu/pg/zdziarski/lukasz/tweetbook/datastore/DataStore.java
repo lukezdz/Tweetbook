@@ -65,6 +65,20 @@ public class DataStore {
 		);
 	}
 
+	public synchronized void updateUser(User user) throws IllegalArgumentException {
+		findUser(user.getEmail()).ifPresentOrElse(
+				original -> {
+					users.remove(original);
+					users.add(user);
+				},
+				() -> {
+					throw new IllegalArgumentException(
+							String.format("User with email \"%s\" does not exist", user.getEmail())
+					);
+				}
+		);
+	}
+
 	public synchronized List<Post> findAllPosts() {
 		return posts.stream()
 				.map(CloningUtility::clone)

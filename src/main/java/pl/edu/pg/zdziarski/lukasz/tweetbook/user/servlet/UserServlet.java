@@ -1,9 +1,13 @@
 package pl.edu.pg.zdziarski.lukasz.tweetbook.user.servlet;
 
+import pl.edu.pg.zdziarski.lukasz.tweetbook.servlet.HttpHeaders;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.servlet.MimeTypes;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.servlet.ServletUtility;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.servlet.UrlFactory;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.user.dto.CreateUserRequest;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.dto.GetUserResponse;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.dto.GetUsersResponse;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.user.dto.UpdateUserRequest;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.service.UserService;
 
@@ -20,7 +24,7 @@ import java.util.Optional;
 
 @WebServlet(urlPatterns = { UserServlet.Paths.USER + "/*"})
 public class UserServlet extends HttpServlet {
-	private UserService userService;
+	private final UserService userService;
 
 	@Inject
 	public UserServlet(UserService userService) {
@@ -56,6 +60,42 @@ public class UserServlet extends HttpServlet {
 		resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String path = ServletUtility.parseRequestPath(req);
+		if (Paths.USER.equals(req.getServletPath())) {
+			if (path.matches(Patterns.USER)) {
+				postUser(req, resp);
+				return;
+			}
+		}
+		resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+	}
+
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String path = ServletUtility.parseRequestPath(req);
+		if (Paths.USER.equals(req.getServletPath())) {
+			if (path.matches(Patterns.USER)) {
+				putUser(req, resp);
+				return;
+			}
+		}
+		resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+	}
+
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String path = ServletUtility.parseRequestPath(req);
+		if (Paths.USER.equals(req.getServletPath())) {
+			if (path.matches(Patterns.USER)) {
+				deleteUser(req, resp);
+				return;
+			}
+		}
+		resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+	}
+
 	private void getUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String email = ServletUtility.parseRequestPath(request).replaceAll("/", "");
 		Optional<User> user = userService.find(email);
@@ -72,5 +112,48 @@ public class UserServlet extends HttpServlet {
 	private void getUsers(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType(MimeTypes.APPLICATION_JSON);
 		response.getWriter().write(jsonb.toJson(GetUsersResponse.entityToDtoMapper().apply(userService.findAll())));
+	}
+
+	private void postUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		CreateUserRequest requestBody = jsonb.fromJson(request.getInputStream(), CreateUserRequest.class);
+		User user = CreateUserRequest.dtoToEntityMapper().apply(requestBody);
+
+		try {
+			userService.create(user);
+			response.addHeader(HttpHeaders.LOCATION, UrlFactory.createUrl(request, Paths.USER, user.getEmail()));
+			response.setStatus(HttpServletResponse.SC_CREATED);
+		}
+		catch (IllegalArgumentException ex) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+		}
+	}
+
+	private void putUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String email = ServletUtility.parseRequestPath(request).replaceAll("/", "");
+		Optional<User> user = userService.find(email);
+
+		if (user.isPresent()) {
+			UpdateUserRequest requestBody = jsonb.fromJson(request.getInputStream(), UpdateUserRequest.class);
+			UpdateUserRequest.dtoToEntityMapper().apply(user.get(), requestBody);
+
+			userService.update(user.get());
+			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+		}
+		else {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
+	}
+
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String email = ServletUtility.parseRequestPath(request).replaceAll("/", "");
+		Optional<User> user = userService.find(email);
+
+		if (user.isPresent()) {
+			userService.delete(user.get().getEmail());
+			response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+		}
+		else {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		}
 	}
 }

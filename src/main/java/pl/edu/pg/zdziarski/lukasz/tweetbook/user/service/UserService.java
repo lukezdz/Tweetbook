@@ -45,6 +45,10 @@ public class UserService {
 		repository.delete(userEmail);
 	}
 
+	public void update(User user) {
+		repository.update(user);
+	}
+
 	public void updateProfilePicture(String email, InputStream is) {
 		repository.find(email).ifPresent(user -> {
 			try {
@@ -55,5 +59,9 @@ public class UserService {
 				throw new IllegalStateException(ex);
 			}
 		});
+	}
+
+	public void deleteProfilePicture(String email) {
+		repository.deleteProfilePicture(repository.find(email).orElseThrow());
 	}
 }

@@ -35,7 +35,6 @@ public class InitializedData {
 				.name("Admin")
 				.surname("Realone")
 				.birthday(LocalDate.of(1999, 01, 01))
-				.profilePicture(getResourceAsByteArray("profilePictures/admin.png"))
 				.password(DigestUtils.sha256Hex("adminadmin"))
 				.build();
 		User chad = User.builder()
@@ -73,13 +72,8 @@ public class InitializedData {
 
 	@SneakyThrows
 	private byte[] getResourceAsByteArray(String name) {
-		try (InputStream is = this.getClass().getClassLoader().getResourceAsStream(name)) {
-			if (is != null) {
-				return is.readAllBytes();
-			}
-			else {
-				return "".getBytes(StandardCharsets.UTF_8);
-			}
+		try (InputStream is = this.getClass().getResourceAsStream(name)) {
+			return is.readAllBytes();
 		}
 	}
 }

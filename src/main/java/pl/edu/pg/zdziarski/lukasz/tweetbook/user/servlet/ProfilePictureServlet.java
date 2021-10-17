@@ -15,10 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @WebServlet(urlPatterns = ProfilePictureServlet.Paths.PROFILE_PICTURES + "/*")
-@MultipartConfig(maxFileSize =  200 * 1024)
+@MultipartConfig(maxFileSize =  500 * 1024)
 public class ProfilePictureServlet extends HttpServlet {
 	private final UserService service;
 
@@ -81,14 +82,48 @@ public class ProfilePictureServlet extends HttpServlet {
 		resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String path = ServletUtility.parseRequestPath(req);
+		String servletPath = req.getServletPath();
+
+		if (Paths.PROFILE_PICTURES.equals(servletPath)) {
+			if (path.matches(Patterns.PROFILE_PICTURE)) {
+				postProfilePicture(req, resp);
+				return;
+			}
+		}
+		resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+	}
+
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String path = ServletUtility.parseRequestPath(req);
+		String servletPath = req.getServletPath();
+
+		if (Paths.PROFILE_PICTURES.equals(servletPath)) {
+			if (path.matches(Patterns.PROFILE_PICTURE)) {
+				deleteProfilePicture(req, resp);
+				return;
+			}
+		}
+		resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+	}
+
 	private void getProfilePicture(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String email = ServletUtility.parseRequestPath(request).replaceAll("/", "");
 		Optional<User> user = service.find(email);
 
 		if (user.isPresent()) {
 			response.addHeader(HttpHeaders.CONTENT_TYPE, MimeTypes.IMAGE_PNG);
-			response.setContentLength(user.get().getProfilePicture().length);
-			response.getOutputStream().write(user.get().getProfilePicture());
+			if (user.get().getProfilePicture() != null) {
+				response.setContentLength(user.get().getProfilePicture().length);
+				response.getOutputStream().write(user.get().getProfilePicture());
+			}
+			else {
+				response.setContentLength(0);
+				response.getOutputStream().write("".getBytes(StandardCharsets.UTF_8));
+			}
 		}
 		else {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -108,6 +143,40 @@ public class ProfilePictureServlet extends HttpServlet {
 		}
 		else {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
+	}
+
+	private void postProfilePicture(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String email = ServletUtility.parseRequestPath(request).replaceAll("/", "");
+		Optional<User> user = service.find(email);
+
+		if (user.isPresent()) {
+			if (user.get().getProfilePicture() == null) {
+				Part profilePicture = request.getPart(Parameters.PROFILE_PICTURE);
+				if (profilePicture != null) {
+					service.updateProfilePicture(email, profilePicture.getInputStream());
+				}
+				response.setStatus(HttpServletResponse.SC_OK);
+			}
+			else {
+				response.setStatus(HttpServletResponse.SC_CONFLICT);
+			}
+		}
+		else {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		}
+	}
+
+	private void deleteProfilePicture(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String email = ServletUtility.parseRequestPath(request).replaceAll("/", "");
+		Optional<User> user = service.find(email);
+
+		if (user.isPresent()) {
+			service.deleteProfilePicture(user.get().getEmail());
+			response.setStatus(HttpServletResponse.SC_OK);
+		}
+		else {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		}
 	}
 }
