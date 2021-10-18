@@ -10,8 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 
-import java.time.LocalDateTime;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 @Getter
 @Setter
@@ -20,18 +19,13 @@ import java.util.function.Function;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
-public class GetPostResponse {
-	private String id;
+public class UpdatePostRequest {
 	private String description;
-	private String authorsEmail;
-	private LocalDateTime creationTime;
 
-	public static Function<Post, GetPostResponse> entityToDtoMapper() {
-		return post -> GetPostResponse.builder()
-				.id(post.getId())
-				.description(post.getDescription())
-				.authorsEmail(post.getAuthor().getEmail())
-				.creationTime(post.getCreationTime())
-				.build();
+	public static BiFunction<Post, UpdatePostRequest, Post> dtoToEntityMapper() {
+		return (post, request) -> {
+			post.setDescription(request.getDescription());
+			return post;
+		};
 	}
 }

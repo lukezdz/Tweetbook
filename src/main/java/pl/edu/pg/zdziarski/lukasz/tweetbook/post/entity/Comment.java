@@ -10,7 +10,7 @@ import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,12 +21,16 @@ public class Comment implements Serializable {
 	private String id;
 	private User author;
 	private Post target;
-	private LocalDate creationTime;
+	private LocalDateTime creationTime;
 	private String description;
 
-	public Comment(User author, Post target, LocalDate creationTime, String description) {
+	public Comment(User author, Post target, LocalDateTime creationTime, String description) {
 		this.id = DigestUtils.sha256Hex(
 				(author.getEmail() + target.getId() + creationTime.toString() + description)
 						.getBytes(StandardCharsets.UTF_8));
+		this.author = author;
+		this.target = target;
+		this.creationTime = creationTime;
+		this.description = description;
 	}
 }

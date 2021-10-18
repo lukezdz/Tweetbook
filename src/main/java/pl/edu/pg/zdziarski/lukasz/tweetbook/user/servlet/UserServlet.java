@@ -37,7 +37,7 @@ public class UserServlet extends HttpServlet {
 
 	public static class Patterns {
 		public static final String USERS = "^/?$";
-		public static final String USER = "^/[a-z@.]+/?$";
+		public static final String USER = "^/[a-z0-9@.]+/?$";
 	}
 
 	private final Jsonb jsonb = JsonbBuilder.create();

@@ -1,16 +1,22 @@
 package pl.edu.pg.zdziarski.lukasz.tweetbook.post.service;
 
+import lombok.NoArgsConstructor;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.repository.CommentRepository;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
+@NoArgsConstructor
 public class CommentService {
-	private final CommentRepository repository;
+	private CommentRepository repository;
 
+	@Inject
 	public CommentService(CommentRepository repository) {
 		this.repository = repository;
 	}
@@ -37,5 +43,9 @@ public class CommentService {
 
 	public void delete(String commentId) {
 		repository.delete(commentId);
+	}
+
+	public void update(Comment comment) {
+		repository.update(comment);
 	}
 }

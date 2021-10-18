@@ -2,6 +2,10 @@ package pl.edu.pg.zdziarski.lukasz.tweetbook.configuration;
 
 import lombok.SneakyThrows;
 import org.apache.commons.codec.digest.DigestUtils;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.CommentService;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.PostService;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.service.UserService;
 
@@ -14,14 +18,19 @@ import javax.servlet.ServletContextListener;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @ApplicationScoped
 public class InitializedData {
 	private final UserService userService;
+	private final PostService postService;
+	private final CommentService commentService;
 
 	@Inject
-	public InitializedData(UserService userService) {
+	public InitializedData(UserService userService, PostService postService, CommentService commentService) {
 		this.userService = userService;
+		this.postService = postService;
+		this.commentService = commentService;
 	}
 
 	public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -68,6 +77,22 @@ public class InitializedData {
 		userService.create(chad);
 		userService.create(karen);
 		userService.create(john);
+
+		Post adminAnnouncement = new Post(admin, "Please make sure to comply with TOS", LocalDateTime.now());
+		Post chadHello = new Post(chad, "Hi all, I am Chad!", LocalDateTime.now());
+		Post karenRant = new Post(karen, "Today I went to Walmart. -1/10 I will not come back. I had to ask for the manager twice!!!1!", LocalDateTime.now());
+		Post johnBusiness = new Post(john, "I am John Kovalsky and I invite you to use the services of my accounting firm.", LocalDateTime.now());
+
+		postService.create(adminAnnouncement);
+		postService.create(chadHello);
+		postService.create(karenRant);
+		postService.create(johnBusiness);
+
+		Comment johnToKaren = new Comment(john, karenRant, LocalDateTime.now(), "I assure you that at my accounting firm you would have to ask just once!");
+		Comment chadToAdmin = new Comment(chad, adminAnnouncement, LocalDateTime.now(), "Yeah, yeah, sure");
+
+		commentService.create(johnToKaren);
+		commentService.create(chadToAdmin);
 	}
 
 	@SneakyThrows

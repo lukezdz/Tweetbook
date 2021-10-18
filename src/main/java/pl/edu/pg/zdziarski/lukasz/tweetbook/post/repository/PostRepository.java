@@ -5,12 +5,16 @@ import pl.edu.pg.zdziarski.lukasz.tweetbook.repository.Repository;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
+@Dependent
 public class PostRepository implements Repository<Post, String> {
 	private final DataStore store;
 
+	@Inject
 	public PostRepository(DataStore store) {
 		this.store = store;
 	}

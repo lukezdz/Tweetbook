@@ -13,7 +13,7 @@ import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -27,14 +27,17 @@ public class Post implements Serializable {
 	private String id;
 	private User author;
 	private String description;
-	private LocalDate creationTime;
+	private LocalDateTime creationTime;
 
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	private List<byte[]> media;
 
-	public Post(User author, String description, LocalDate creationTime) {
+	public Post(User author, String description, LocalDateTime creationTime) {
 		this.id = DigestUtils.sha256Hex((author.getEmail() + description + creationTime.toString())
 				.getBytes(StandardCharsets.UTF_8));
+		this.author = author;
+		this.description = description;
+		this.creationTime = creationTime;
 	}
 }
