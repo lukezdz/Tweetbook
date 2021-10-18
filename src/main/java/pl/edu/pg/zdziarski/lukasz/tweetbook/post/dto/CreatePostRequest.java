@@ -24,21 +24,14 @@ import java.util.function.Function;
 @ToString
 @EqualsAndHashCode
 public class CreatePostRequest {
-	private String id;
 	private String description;
 	private String userEmail;
-	private LocalDateTime creationTime;
 
 	public static Function<CreatePostRequest, Post> dtoToEntityMapper(UserService userService) {
 		return request -> {
 			Optional<User> user = userService.find(request.getUserEmail());
 			if (user.isPresent()) {
-				return Post.builder()
-						.id(request.getId())
-						.description(request.getDescription())
-						.creationTime(request.getCreationTime())
-						.author(user.get())
-						.build();
+				return new Post(user.get(), request.getDescription(), LocalDateTime.now());
 			}
 
 			throw new IllegalArgumentException();
