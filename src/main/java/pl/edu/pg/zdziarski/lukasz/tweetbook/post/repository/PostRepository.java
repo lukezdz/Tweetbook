@@ -41,7 +41,7 @@ public class PostRepository implements Repository<Post, String> {
 
 	@Override
 	public void update(Post entity) {
-		throw new UnsupportedOperationException("Not implemented.");
+		store.updatePost(entity);
 	}
 
 	public List<Post> findByAuthor(User user) {

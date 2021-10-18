@@ -25,11 +25,11 @@ import java.util.function.Function;
 @EqualsAndHashCode
 public class CreatePostRequest {
 	private String description;
-	private String userEmail;
+	private String authorsEmail;
 
 	public static Function<CreatePostRequest, Post> dtoToEntityMapper(UserService userService) {
 		return request -> {
-			Optional<User> user = userService.find(request.getUserEmail());
+			Optional<User> user = userService.find(request.getAuthorsEmail());
 			if (user.isPresent()) {
 				return new Post(user.get(), request.getDescription(), LocalDateTime.now());
 			}

@@ -79,7 +79,7 @@ public class PostServlet extends HttpServlet {
 		String servletPath = req.getServletPath();
 
 		if (Paths.POST.equals(servletPath)) {
-			if (path.matches(Patterns.POST)) {
+			if (path.matches(Patterns.POSTS)) {
 				postPost(req, resp);
 				return;
 			}

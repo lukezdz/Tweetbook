@@ -6,7 +6,7 @@ function createAddPostButton() {
     const button = document.createElement('button');
     button.textContent = 'Create new post';
     button.onclick = function () {
-
+        window.location.href = getContextRoot() + '/post_edit/post_edit.html';
     };
 
     return button;
@@ -36,8 +36,19 @@ function createPost(post) {
     commentsLink.href = '';
     const editButton = document.createElement('button');
     editButton.textContent = 'Edit';
+    editButton.onclick = function () {
+        window.location.href = getContextRoot() + '/post_edit/post_edit.html?post=' + post.id
+    }
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
+    deleteButton.onclick = function () {
+
+    }
+    const commentButton = document.createElement('button');
+    commentButton.textContent = 'Leave a comment';
+    commentButton.onclick = function () {
+
+    }
 
     div.appendChild(authorLink);
     div.appendChild(editButton);
@@ -45,6 +56,7 @@ function createPost(post) {
     div.appendChild(date);
     div.appendChild(description);
     div.appendChild(commentsLink);
+    div.appendChild(commentButton);
 
     return div;
 }

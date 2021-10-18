@@ -126,6 +126,20 @@ public class DataStore {
 		);
 	}
 
+	public synchronized void updatePost(Post post) throws IllegalArgumentException {
+		findPost(post.getId()).ifPresentOrElse(
+				original -> {
+					posts.remove(original);
+					posts.add(post);
+				},
+				() -> {
+					throw new IllegalArgumentException(String.format(
+							"Post with id \"%s\" does not exist.", post.getId()
+					));
+				}
+		);
+	}
+
 	public synchronized List<Comment> findAllComments() {
 		return comments.stream()
 				.map(CloningUtility::clone)
