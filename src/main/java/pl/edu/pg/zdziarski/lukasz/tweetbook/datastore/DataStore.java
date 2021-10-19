@@ -186,4 +186,18 @@ public class DataStore {
 				}
 		);
 	}
+
+	public synchronized void updateComment(Comment comment) throws IllegalArgumentException {
+		findComment(comment.getId()).ifPresentOrElse(
+				original -> {
+					comments.remove(original);
+					comments.add(comment);
+				},
+				() -> {
+					throw new IllegalArgumentException(
+							String.format("Comment with id \"%s\" does not exist", comment.getId())
+					);
+				}
+		);
+	}
 }

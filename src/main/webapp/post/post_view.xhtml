@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{postView.id}" required="false"/>
+        <f:viewAction action="#{postView.init()}"/>
+
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGroup  layout="block">
+            <!--        <h:panelGroup rendered="#{userContext.authorized}" layout="block">-->
+            <article class="text--justified">
+                <header><h2><h:outputText value="#{postView.post.authorsEmail}"/></h2></header>
+                <div class="ad__description">
+                    <h:outputText value="#{postView.post.description}"/>
+                </div>
+                <br></br>
+
+                <div>
+                    <h:dataTable value="#{postView.comments.comments}" var="comment" styleClass="data-table">
+                        <h:column>
+                            <f:facet name="header">Comment</f:facet>
+                            <h:panelGroup  layout="block">
+                                <article class="text--justified">
+                                    <h:outputText value="#{comment.description}"/>
+                                </article>
+                            </h:panelGroup>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">View</f:facet>
+                            <h:link outcome="/comment/comment_view.xhtml" value="View">
+                                <f:param name="id" value="#{comment.id}"/>
+                            </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Edit</f:facet>
+                            <h:link outcome="/comment/comment_edit.xhtml" value="Edit">
+                                <f:param name="id" value="#{comment.id}"/>
+                            </h:link>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Delete</f:facet>
+                            <h:form>
+                                <h:commandButton styleClass="ui-button ui-control" value="delete"
+                                                 action="#{postView.deleteAction(comment.id)}"/>
+                            </h:form>
+                        </h:column>
+
+                        <f:facet name="footer">
+                            <h:link outcome="/comment/comment_create.xhtml" value="Leave a comment">
+                                <f:param name="id" value="#{postView.post.id}"/>
+                            </h:link>
+                        </f:facet>
+
+                    </h:dataTable>
+
+                </div>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>

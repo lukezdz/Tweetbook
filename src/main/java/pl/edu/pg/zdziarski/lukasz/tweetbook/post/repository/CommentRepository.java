@@ -42,7 +42,7 @@ public class CommentRepository implements Repository<Comment, String> {
 
 	@Override
 	public void update(Comment entity) {
-		throw new UnsupportedOperationException("Not implemented.");
+		store.updateComment(entity);
 	}
 
 	public List<Comment> findByPost(Post post) {

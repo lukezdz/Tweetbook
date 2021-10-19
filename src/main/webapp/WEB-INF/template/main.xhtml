@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:head>
+
+        <title>Tweetbook</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <h:outputStylesheet library="css" name="styles.css"/>
+
+    </h:head>
+    <h:body>
+        <h:link outcome="/index.xhtml" styleClass="logo">
+            <h:graphicImage library="images" name="TweetbookLogo.png"/>Tweetbook
+        </h:link>
+        <div id="navigation-bar" class="navigation-bar">
+            <ul>
+                <li><h:link outcome="/about/about.xhtml">About</h:link></li>
+                <li><h:link outcome="/post/post_list.xhtml">Posts</h:link></li>
+            </ul>
+        </div>
+        <div id="content">
+            <div class="one-column-content">
+                <div class="one-column user-list-container">
+                    <ui:insert name="content"/>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="footer">
+            <div class="footer">
+                <span class="simple-description">Tweetbook copyright, Lukasz Zdziarski</span><br></br>
+            </div>
+        </div>
+    </h:body>
+</f:view>
+</html>

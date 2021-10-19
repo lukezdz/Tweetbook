@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template/main.xhtml">
+
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{commentCreate.comment.postId}" required="true"/>
+        <f:viewAction action="#{commentCreate.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGroup layout="block">
+            <article class="text--justified">
+                <header><h2>Leave a comment</h2></header>
+                <h:form class="ad_form" style="text-align:left;">
+
+                    <h:outputLabel for="description" value="Description:"/>
+                    <h:inputTextarea class="ui-control" id="description" value="#{commentCreate.comment.description}"/>
+
+                    <h:outputLabel value="User:"/>
+                    <h:selectOneListbox id="user" class="ui-control" value="#{commentCreate.comment.authorsEmail}"
+                                        layout="pageDirection">
+                        <f:selectItems var="user" value="#{commentCreate.users}" itemValue="#{user.email}"
+                                       itemLabel="#{user.nickname}" itemLabelEscaped="false"/>
+                    </h:selectOneListbox>
+
+
+                    <h:commandButton class="ui-control ui-button" value="Create" immediate="false"
+                                     action="#{commentCreate.saveAction()}"/>
+                </h:form>
+            </article>
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>
