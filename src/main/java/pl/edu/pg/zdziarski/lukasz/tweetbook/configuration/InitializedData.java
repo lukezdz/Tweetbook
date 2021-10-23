@@ -2,9 +2,9 @@ package pl.edu.pg.zdziarski.lukasz.tweetbook.configuration;
 
 import lombok.SneakyThrows;
 import org.apache.commons.codec.digest.DigestUtils;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.CommentService;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.service.CommentService;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.PostService;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.service.UserService;
@@ -13,10 +13,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

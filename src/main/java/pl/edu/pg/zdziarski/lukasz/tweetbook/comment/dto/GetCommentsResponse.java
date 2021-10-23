@@ -1,4 +1,4 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.dto;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -37,7 +37,7 @@ public class GetCommentsResponse {
 	@Singular
 	private List<Comment> comments;
 
-	public static Function<Collection<pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment>, GetCommentsResponse> entityToDtoMapper() {
+	public static Function<Collection<pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment>, GetCommentsResponse> entityToDtoMapper() {
 		return comments -> {
 			GetCommentsResponse.GetCommentsResponseBuilder response = GetCommentsResponse.builder();
 			comments.stream()

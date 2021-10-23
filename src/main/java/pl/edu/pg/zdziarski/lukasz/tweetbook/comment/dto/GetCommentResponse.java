@@ -1,4 +1,4 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.dto;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.dto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
 
 import java.time.LocalDateTime;
 import java.util.function.Function;

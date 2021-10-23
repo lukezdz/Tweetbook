@@ -1,7 +1,6 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.model;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.model;
 
 import lombok.*;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -35,7 +34,7 @@ public class CommentsModel {
     @Singular
     private List<Comment> comments;
 
-    public static Function<Collection<pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment>, CommentsModel> entityToModelMapper() {
+    public static Function<Collection<pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment>, CommentsModel> entityToModelMapper() {
         return comments -> {
             CommentsModel.CommentsModelBuilder builder = CommentsModel.builder();
             comments.stream()

@@ -1,8 +1,8 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.repository;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.repository;
 
 import pl.edu.pg.zdziarski.lukasz.tweetbook.datastore.DataStore;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.repository.Repository;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 

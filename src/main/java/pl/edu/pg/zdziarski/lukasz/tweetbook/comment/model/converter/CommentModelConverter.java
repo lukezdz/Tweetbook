@@ -1,8 +1,8 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.model.converter;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.model.converter;
 
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.model.CommentModel;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.CommentService;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.model.CommentModel;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.service.CommentService;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

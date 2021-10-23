@@ -9,12 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.commons.codec.digest.DigestUtils;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter

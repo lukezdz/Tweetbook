@@ -1,10 +1,9 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.model;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.model;
 
 import lombok.*;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.PostService;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.view.CommentCreate;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.service.UserService;
 

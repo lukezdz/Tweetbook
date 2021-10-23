@@ -3,10 +3,9 @@ package pl.edu.pg.zdziarski.lukasz.tweetbook.post.view;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.model.CommentsModel;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.model.CommentsModel;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.model.PostModel;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.model.PostsModel;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.CommentService;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.service.CommentService;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.PostService;
 
 import javax.faces.context.FacesContext;

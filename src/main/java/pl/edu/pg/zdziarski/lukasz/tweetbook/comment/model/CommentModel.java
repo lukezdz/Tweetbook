@@ -1,7 +1,7 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.model;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.model;
 
 import lombok.*;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
 
 import java.time.LocalDateTime;
 import java.util.function.Function;

@@ -1,4 +1,4 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.commons.codec.digest.DigestUtils;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
 import java.io.Serializable;

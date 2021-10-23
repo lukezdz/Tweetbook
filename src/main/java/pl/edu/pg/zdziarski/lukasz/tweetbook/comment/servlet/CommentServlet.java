@@ -1,12 +1,12 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.servlet;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.servlet;
 
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.dto.CreateCommentRequest;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.dto.GetCommentResponse;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.dto.GetCommentsResponse;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.dto.UpdateCommentRequest;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.dto.CreateCommentRequest;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.dto.GetCommentResponse;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.dto.GetCommentsResponse;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.dto.UpdateCommentRequest;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.CommentService;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.service.CommentService;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.service.PostService;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.servlet.HttpHeaders;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.servlet.MimeTypes;

@@ -2,7 +2,7 @@ package pl.edu.pg.zdziarski.lukasz.tweetbook.datastore;
 
 import lombok.extern.java.Log;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.serialization.CloningUtility;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 

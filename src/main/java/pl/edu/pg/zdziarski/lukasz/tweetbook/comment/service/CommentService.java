@@ -1,9 +1,9 @@
-package pl.edu.pg.zdziarski.lukasz.tweetbook.post.service;
+package pl.edu.pg.zdziarski.lukasz.tweetbook.comment.service;
 
 import lombok.NoArgsConstructor;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Comment;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.entity.Comment;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
-import pl.edu.pg.zdziarski.lukasz.tweetbook.post.repository.CommentRepository;
+import pl.edu.pg.zdziarski.lukasz.tweetbook.comment.repository.CommentRepository;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
 import javax.enterprise.context.ApplicationScoped;
