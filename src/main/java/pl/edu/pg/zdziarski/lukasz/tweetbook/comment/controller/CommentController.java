@@ -32,21 +32,14 @@ public class CommentController {
 	private CommentService commentService;
 
 	@Inject
-	public void setUserService(UserService userService) {
+	public void setServices(UserService userService, PostService postService, CommentService commentService) {
 		this.userService = userService;
-	}
-
-	@Inject
-	public void setPostService(PostService postService) {
 		this.postService = postService;
-	}
-
-	@Inject
-	public void setCommentService(CommentService commentService) {
 		this.commentService = commentService;
 	}
 
 	@GET
+	@Path("/comments")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getComments() {
 		return Response.ok(GetCommentsResponse.entityToDtoMapper().apply(commentService.findAll())).build();
@@ -80,7 +73,7 @@ public class CommentController {
 	}
 
 	@POST
-	@Path("/posts/{id}/comment")
+	@Path("/posts/{id}/comments")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createComment(CreateCommentRequest request, @PathParam("id") String postId) {
 		Optional<User> user = userService.find(request.getAuthorEmail());
