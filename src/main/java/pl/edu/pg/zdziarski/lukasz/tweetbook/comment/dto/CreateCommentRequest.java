@@ -27,13 +27,12 @@ import java.util.function.Function;
 @EqualsAndHashCode
 public class CreateCommentRequest {
 	private String authorEmail;
-	private String postId;
 	private String description;
 
-	public static Function<CreateCommentRequest, Comment> dtoToEntityMapper(UserService userService, PostService postService) {
+	public static Function<CreateCommentRequest, Comment> dtoToEntityMapper(UserService userService, PostService postService, String postId) {
 		return request -> {
 			Optional<User> user = userService.find(request.getAuthorEmail());
-			Optional<Post> post = postService.find(request.getPostId());
+			Optional<Post> post = postService.find(postId);
 
 			if (user.isPresent() && post.isPresent()) {
 				return new Comment(user.get(), post.get(), LocalDateTime.now(), request.getDescription());
