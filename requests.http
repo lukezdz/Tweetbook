@@ -5,13 +5,13 @@ GET http://localhost:9080/Tweetbook/api/users
 GET http://localhost:9080/Tweetbook/api/comments
 
 ### Get all comments of given post
-GET http://localhost:9080/Tweetbook/api/post/<post-id>/comments
+GET http://localhost:9080/Tweetbook/api/posts/<post-id>/comments
 
 ### Get a specific comment
-GET http://localhost:9080/Tweetbook/api/comment/<comment-id>
+GET http://localhost:9080/Tweetbook/api/comments/<comment-id>
 
 ### Update a specific comment
-PUT http://localhost:9080/Tweetbook/api/comment/<comment-id>
+PUT http://localhost:9080/Tweetbook/api/comments/<comment-id>
 Content-Type: application/json
 
 {
@@ -19,11 +19,11 @@ Content-Type: application/json
 }
 
 ### Create new comment for specific post
-POST http://localhost:9080/Tweetbook/api/post/<post-id>/comments
+POST http://localhost:9080/Tweetbook/api/posts/<post-id>/comments
 Content-Type: application/json
 
 {
-  "authorsEmail": "admin@tweetbook.com",
+  "authorEmail": "admin@tweetbook.com",
   "description": "Important corporate message"
 }
 
@@ -49,7 +49,7 @@ POST http://localhost:9080/Tweetbook/api/posts
 Content-Type: application/json
 
 {
-  "authorEmail": "admin@tweetbook.com",
+  "authorsEmail": "admin@tweetbook.com",
   "description": "New post content"
 }
 
