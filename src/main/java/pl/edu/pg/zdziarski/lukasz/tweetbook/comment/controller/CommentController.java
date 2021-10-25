@@ -99,7 +99,7 @@ public class CommentController {
 		if (comment.isPresent()) {
 			comment.get().setDescription(request.getDescription());
 			commentService.update(comment.get());
-			return Response.noContent().build();
+			return Response.accepted().build();
 		}
 
 		return Response.status(Response.Status.NOT_FOUND).build();
@@ -114,6 +114,6 @@ public class CommentController {
 			return Response.accepted().build();
 		}
 
-		return Response.status(Response.Status.NOT_FOUND).build();
+		return Response.noContent().build();
 	}
 }

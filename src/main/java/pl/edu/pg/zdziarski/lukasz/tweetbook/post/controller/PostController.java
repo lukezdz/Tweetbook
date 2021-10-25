@@ -92,7 +92,7 @@ public class PostController {
 		if (post.isPresent()) {
 			post.get().setDescription(request.getDescription());
 			postService.update(post.get());
-			return Response.noContent().build();
+			return Response.accepted().build();
 		}
 
 		return Response.status(Response.Status.NOT_FOUND).build();
@@ -108,6 +108,6 @@ public class PostController {
 			return Response.accepted().build();
 		}
 
-		return Response.status(Response.Status.NOT_FOUND).build();
+		return Response.noContent().build();
 	}
 }

@@ -1,0 +1,57 @@
+### Get users
+GET http://localhost:9080/Tweetbook/api/users
+
+### Get all comments
+GET http://localhost:9080/Tweetbook/api/comments
+
+### Get all comments of given post
+GET http://localhost:9080/Tweetbook/api/post/<post-id>/comments
+
+### Get a specific comment
+GET http://localhost:9080/Tweetbook/api/comment/<comment-id>
+
+### Update a specific comment
+PUT http://localhost:9080/Tweetbook/api/comment/<comment-id>
+Content-Type: application/json
+
+{
+  "description": "Changed comment content"
+}
+
+### Create new comment for specific post
+POST http://localhost:9080/Tweetbook/api/post/<post-id>/comments
+Content-Type: application/json
+
+{
+  "authorsEmail": "admin@tweetbook.com",
+  "description": "Important corporate message"
+}
+
+### Delete a specific comment
+DELETE http://localhost:9080/Tweetbook/api/comments/<comment-id>
+
+### Get all posts
+GET http://localhost:9080/Tweetbook/api/posts
+
+### Get a specific post
+GET http://localhost:9080/Tweetbook/api/posts/<post-id>
+
+### Update a specific post
+PUT http://localhost:9080/Tweetbook/api/posts/<post-id>
+Content-Type: application/json
+
+{
+  "description": "Changed post content"
+}
+
+### Create new post
+POST http://localhost:9080/Tweetbook/api/posts
+Content-Type: application/json
+
+{
+  "authorEmail": "admin@tweetbook.com",
+  "description": "New post content"
+}
+
+### Delete a specific post
+DELETE http://localhost:9080/Tweetbook/api/posts/<post-id>
