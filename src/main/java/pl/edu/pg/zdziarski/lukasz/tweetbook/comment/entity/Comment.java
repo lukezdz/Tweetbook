@@ -9,6 +9,12 @@ import org.apache.commons.codec.digest.DigestUtils;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -16,12 +22,22 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode
+@Entity
+@Table(name = "comments")
 public class Comment implements Serializable {
+	@Id
 	private String id;
+
+	@ManyToOne
+	@JoinColumn(name = "users")
 	private User author;
+
+	@ManyToOne
+	@JoinColumn(name = "posts")
 	private Post target;
+
 	private LocalDateTime creationTime;
 	private String description;
 

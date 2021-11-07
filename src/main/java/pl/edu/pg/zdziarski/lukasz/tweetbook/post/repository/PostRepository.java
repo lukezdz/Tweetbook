@@ -1,50 +1,57 @@
 package pl.edu.pg.zdziarski.lukasz.tweetbook.post.repository;
 
-import pl.edu.pg.zdziarski.lukasz.tweetbook.datastore.DataStore;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.repository.Repository;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.post.entity.Post;
 import pl.edu.pg.zdziarski.lukasz.tweetbook.user.entity.User;
 
-import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
-@Dependent
+@RequestScoped
 public class PostRepository implements Repository<Post, String> {
-	private final DataStore store;
+	private EntityManager em;
 
-	@Inject
-	public PostRepository(DataStore store) {
-		this.store = store;
+	@PersistenceContext
+	public void setEm(EntityManager entityManager) {
+		this.em = entityManager;
 	}
 
 	@Override
 	public Optional<Post> find(String id) {
-		return store.findPost(id);
+		return Optional.ofNullable(em.find(Post.class, id));
 	}
 
 	@Override
 	public List<Post> findAll() {
-		return store.findAllPosts();
+		return em.createQuery("select p from Post p", Post.class).getResultList();
 	}
 
 	@Override
 	public void create(Post entity) {
-		store.createPost(entity);
+		em.persist(entity);
 	}
 
 	@Override
 	public void delete(String id) {
-		store.deletePost(id);
+		em.remove(em.find(Post.class, id));
 	}
 
 	@Override
 	public void update(Post entity) {
-		store.updatePost(entity);
+		em.merge(entity);
+	}
+
+	@Override
+	public void detach(Post entity) {
+		em.detach(entity);
 	}
 
 	public List<Post> findByAuthor(User user) {
-		return store.findPostsByAuthor(user);
+		return em.createQuery("select p from Post p where p.author.email = :email", Post.class)
+				.setParameter("email", user.getEmail())
+				.getResultList();
 	}
 }

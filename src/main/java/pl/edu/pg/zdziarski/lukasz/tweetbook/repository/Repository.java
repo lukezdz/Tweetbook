@@ -42,4 +42,10 @@ public interface Repository<E, K> {
 	 * @param entity object to be updated
 	 */
 	void update(E entity);
+
+	/**
+	 * Detach object from current entity manager.
+	 * @param entity entity to be detached
+	 */
+	void detach(E entity);
 }

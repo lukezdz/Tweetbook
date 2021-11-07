@@ -6,6 +6,7 @@ import pl.edu.pg.zdziarski.lukasz.tweetbook.user.repository.UserRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -37,18 +38,22 @@ public class UserService {
 		return repository.findAll();
 	}
 
+	@Transactional
 	public void create(User user) {
 		repository.create(user);
 	}
 
+	@Transactional
 	public void delete(String userEmail) {
 		repository.delete(userEmail);
 	}
 
+	@Transactional
 	public void update(User user) {
 		repository.update(user);
 	}
 
+	@Transactional
 	public void updateProfilePicture(String email, InputStream is) {
 		repository.find(email).ifPresent(user -> {
 			try {
@@ -61,6 +66,7 @@ public class UserService {
 		});
 	}
 
+	@Transactional
 	public void deleteProfilePicture(String email) {
 		repository.deleteProfilePicture(repository.find(email).orElseThrow());
 	}

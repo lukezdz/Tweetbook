@@ -11,6 +11,7 @@ import pl.edu.pg.zdziarski.lukasz.tweetbook.user.service.UserService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Initialized;
+import javax.enterprise.context.control.RequestContextController;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.io.InputStream;
@@ -22,12 +23,15 @@ public class InitializedData {
 	private final UserService userService;
 	private final PostService postService;
 	private final CommentService commentService;
+	private final RequestContextController requestContextController;
 
 	@Inject
-	public InitializedData(UserService userService, PostService postService, CommentService commentService) {
+	public InitializedData(UserService userService, PostService postService,
+						   CommentService commentService, RequestContextController requestContextController) {
 		this.userService = userService;
 		this.postService = postService;
 		this.commentService = commentService;
+		this.requestContextController = requestContextController;
 	}
 
 	public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
@@ -35,6 +39,7 @@ public class InitializedData {
 	}
 
 	private synchronized void init() {
+		requestContextController.activate();
 		User admin = User.builder()
 				.email("admin@tweetbook.com")
 				.nickname("Admin")
@@ -90,6 +95,8 @@ public class InitializedData {
 
 		commentService.create(johnToKaren);
 		commentService.create(chadToAdmin);
+
+		requestContextController.deactivate();
 	}
 
 	@SneakyThrows
